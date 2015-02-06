@@ -119,8 +119,13 @@ public class AllTheThings {
 	}
 	
 	public static void Binary(int search, int []array){
-		int mean;
-		mean = array[0]+array[array.length-1];
+		int mean=search-1, top=array[array.length-1], bottom=array[0];
+		while(mean != search){
+			mean = (bottom+top)/2;
+			if (search > mean){
+				
+			}
+		}
 	}
 	
 	public static int[] fileReader(int array[]){
