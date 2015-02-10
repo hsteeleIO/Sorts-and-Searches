@@ -1,5 +1,4 @@
 import TerminalIO.KeyboardReader;
-
 import java.io.File;
 import java.util.Random;
 import java.util.Scanner;
@@ -106,6 +105,7 @@ public class AllTheThings {
 	}
 	
 	public static void Linear(int search, int []array){
+		Output(array);
 		boolean checker = false;
 		for (int i=0; i < array.length; i++){
 			if (array[i] == search){
@@ -119,13 +119,22 @@ public class AllTheThings {
 	}
 	
 	public static void Binary(int search, int []array){
-		int mean=search-1, top=array[array.length-1], bottom=array[0];
-		while(mean != search){
-			mean = (bottom+top)/2;
-			if (search > mean){
-				
+		Insertion(array);
+		int mean=(array.length/2), top=array.length, bottom=0, cntr=0;
+		while((array[mean] != search)&&(cntr<(array.length)/2)){
+			if (search > array[mean]){
+				bottom = mean;
 			}
+			if (search < array[mean]){
+				top = mean;
+			}
+			mean = (top+bottom)/2;
+			cntr++;
 		}
+		if (array[mean] == search)
+			System.out.println("\nThe number " + search + " is located at " + mean);
+		else
+			System.out.println("\nThe number you were looking for is not here. ");
 	}
 	
 	public static int[] fileReader(int array[]){
@@ -194,7 +203,7 @@ public class AllTheThings {
 				if ((choice=='A')||(choice=='a')){
 					array = fileReader(array);
 					search = q.readInt("\nWhat would you like to search for: ");
-					System.out.println("Which search would you like to preform? ");
+					System.out.println("\nWhich search would you like to preform? ");
 					System.out.println("\t(1) Linear search  ");
 					System.out.println("\t(2) Binary search  ");
 					answer = q.readInt("Input your choice: ");
@@ -210,7 +219,7 @@ public class AllTheThings {
 					array = new int [n];
 					Random(array, n);
 					search = q.readInt("\nWhat would you like to search for: ");
-					System.out.println("Which search would you like to preform? ");
+					System.out.println("\nWhich search would you like to preform? ");
 					System.out.println("\t(1) Linear search  ");
 					System.out.println("\t(2) Binary search  ");
 					answer = q.readInt("Input your choice: ");
@@ -248,7 +257,7 @@ public class AllTheThings {
 					n = q.readInt("\nHow large would you like the array to be? ");
 					array = new int [n];
 					Random(array, n);
-					System.out.println("\n\nWhich sort would you like to preform? ");
+					System.out.println("\nWhich sort would you like to preform? ");
 					System.out.println("\t(1) Selection  ");
 					System.out.println("\t(2) Bubble  ");
 					System.out.println("\t(3) Insertion  ");
@@ -262,9 +271,21 @@ public class AllTheThings {
 						case 4: Merge();break;
 						default: System.out.println("This is not a valid choice");break;
 					}
-						
+					
+					
 				}
-			
+				choice = q.readChar("\nWould you like to search your sorted array? (Y/N) ");
+					if ((choice == 'Y')||(choice == 'y')){
+						search = q.readInt("\nWhat would you like to search for: ");
+						System.out.println("\nWhich search would you like to preform? ");
+						System.out.println("\t(1) Linear search  ");
+						System.out.println("\t(2) Binary search  ");
+						answer = q.readInt("Input your choice: ");
+						switch(answer){
+							case 1:Linear(search, array);break;
+							case 2:Binary(search, array);break;
+						}
+					}
 			}
 			choice = q.readChar("\nWould you like to do something else? (Y/N) ");
 		}while ((choice == 'Y')||(choice == 'y'));
