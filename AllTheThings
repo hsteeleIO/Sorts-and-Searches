@@ -100,8 +100,51 @@ public class AllTheThings {
 	}
 	
 	public static void Merge(){
+	
+		int [] array1 = new int [array.length/2];
+		int [] array2 = new int [array.length-array.length/2];
+		if (array.length > 1){
+			
+			array1 = Arrays.copyOfRange(array, 0, array.length/2);
+		    array2 = Arrays.copyOfRange(array,array.length/2,array.length);
+		    
+			array1 = mergeSort(array1); 
+			array2 = mergeSort(array2);
+		}
 		
+		else{
+			return array;
+		}
 		
+		int one=0, two=0, cntr=0;
+			
+		while (((one <= array1.length)||(two <= array2.length))&&(cntr < array.length)){
+			
+			if (one >= array1.length){
+				for (int i = cntr; two < array2.length; i++){
+					array[i] = array2[two];
+					two++;
+				}
+				two = array.length;
+			}
+			else if (two >= array2.length){
+				for (int i = cntr; one < array1.length; i++){
+					array[i] = array1[one];
+					one++;
+				}
+				one = array.length;
+			}
+			else if (array1[one] <= array2[two]){
+				array[cntr] = array1[one];
+				one++;
+			}
+			else if (array1[one] >= array2[two]){
+				array[cntr] = array2[two];
+				two++;
+			}
+			cntr++;
+		}
+		return array;
 	}
 	
 	public static void Linear(int search, int []array){
